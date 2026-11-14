@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uji Deployment Berhasil - ChelsYP</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #10b981;
+            --accent-hover: #059669;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 1rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 2.5rem 2rem;
+            max-width: 480px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: rgba(16, 185, 129, 0.15);
+            color: var(--accent);
+            padding: 0.4rem 0.9rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1.25rem;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        h1 {
+            font-size: 1.75rem;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.025em;
+        }
+
+        p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-box {
+            background-color: #0f172a;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            font-family: monospace;
+            font-size: 0.85rem;
+            color: #cbd5e1;
+            text-align: left;
+            border: 1px solid #1e293b;
+        }
+
+        .info-box div {
+            margin-bottom: 0.35rem;
+        }
+
+        .info-box div:last-child {
+            margin-bottom: 0;
+        }
+
+        button {
+            background-color: var(--accent);
+            color: #064e3b;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: var(--accent-hover);
+            color: #ffffff;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="badge">
+            <span class="dot"></span>
+            Status: Online
+        </div>
+        <h1>Deployment Berhasil!</h1>
+        <p>Halaman statis untuk pengujian CI/CD dan hosting pada repositori <strong>ChelsYP/deploydoc-uji-berhasil</strong> berjalan dengan normal.</p>
+        
+        <div class="info-box">
+            <div><strong>Host:</strong> <span id="host-info">-</span></div>
+            <div><strong>Waktu Akses:</strong> <span id="time-info">-</span></div>
+            <div><strong>Ping Simulasi:</strong> <span id="ping-info">-</span></div>
+        </div>
+
+        <button id="test-btn">Uji Respons JavaScript</button>
+    </div>
+
+    <script>
+        function updateSystemInfo() {
+            const hostEl = document.getElementById('host-info');
+            const timeEl = document.getElementById('time-info');
+            const pingEl = document.getElementById('ping-info');
+
+            hostEl.textContent = window.location.hostname || 'localhost (file lokal)';
+            
+            const now = new Date();
+            timeEl.textContent = now.toLocaleString('id-ID', { 
+                dateStyle: 'medium', 
+                timeStyle: 'medium' 
+            });
+
+            const randomPing = Math.floor(Math.random() * 18) + 4;
+            pingEl.textContent = `${randomPing} ms (OK)`;
+        }
+
+        document.getElementById('test-btn').addEventListener('click', function() {
+            updateSystemInfo();
+            const originalText = this.textContent;
+            this.textContent = '✓ JavaScript Berjalan Lancar';
+            setTimeout(() => {
+                this.textContent = originalText;
+            }, 1500);
+        });
+
+        // Inisialisasi saat halaman dimuat
+        updateSystemInfo();
+    </script>
+
+</body>
+</html>
